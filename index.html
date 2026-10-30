@@ -2,7 +2,7 @@
 <html lang="eu">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title id="doc-title">Ecuaciones de 1.er y 2.º Grado - DBH 1 / 1.º ESO</title>
+    <title id="doc-title">Ekuazioen Simuladorea - DBH 1 / 1.º ESO</title>
     <style type="text/css">
         :root {
             --primary: #2b6cb0;
@@ -157,29 +157,6 @@
             font-size: 1.05rem;
         }
 
-        /* Interactive SVG Balance */
-        .balance-container {
-            background: #f7fafc;
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .balance-controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            margin-top: 15px;
-            background: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-
         .formula-box {
             background: #f7fafc;
             border: 2px solid #cbd5e0;
@@ -297,6 +274,18 @@
             max-width: 100%;
         }
 
+        /* SVG Balanza */
+        .balance-svg-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
         /* Zona de cuestionarios */
         .quiz-box {
             margin-top: 25px;
@@ -400,7 +389,7 @@
 
 <!-- Banner de aviso superior obligatorio -->
 <div class="disclaimer-banner" id="disclaimer-text">
-    Aplikazioa a.arriba@irakasle.ehu.eus-ek sortu du AA baten laguntzaz kodea sortzeko (azken berrikuspena: 2026ko urriaren 16an). Tresna honek akatsak izan ditzake, beraz, iradokizun edo zuzenketa guztiak posta elektroniko horren bidez bideratuko dira.
+    Aplikazioa a.arriba@irakasle.ehu.eus-ek sortu du AA baten laguntzaz kodea sortzeko (azken berrikuspena: 2026ko urriaren 3an). Tresna honek akatsak izan ditzake, beraz, iradokizun edo zuzenketa guztiak posta elektroniko horren bidez bideratuko dira.
 </div>
 
 <div class="container">
@@ -417,7 +406,7 @@
         <button class="tab-btn" onclick="openTab(event, 'practice')" id="tab-prac-btn">Ariketa Praktikoak</button>
     </nav>
 
-    <!-- INTRODUCCIÓN TEÓRICA -->
+    <!-- INTRODUCCIÓN TEÓRICA CON BALANZA SVG -->
     <div id="intro" class="tab-content active">
         <h2 id="intro-title">Zer da ekuazio bat?</h2>
         
@@ -426,53 +415,36 @@
             <p id="intro-sec1-desc">Ekuazio bat bi adierazpen algebriko lotzen dituen <strong>berdintza bat</strong> da. Balantza bat orekan bezala pentsa daiteke: ezkerraldean dagoenak eta eskuinaldean dagoenak balio bera dute.</p>
         </div>
 
-        <!-- SIMULADOR VISUAL DE LA BALANZA (SVG) -->
-        <div class="balance-container">
-            <h3 id="balance-title" style="color: var(--primary); margin-bottom: 10px;">Balantza Interaktiboa: x + 3 = 7</h3>
-            
-            <svg id="balanceSvg" width="500" height="220" viewBox="0 0 500 220" style="background: white; border-radius: 8px; border: 1px solid var(--border);">
-                <!-- Base / Pie de la balanza -->
-                <polygon points="250,190 230,210 270,210" fill="#4a5568" />
-                <rect x="245" y="100" width="10" height="90" fill="#718096" />
+        <!-- REPRESENTACIÓN GRÁFICA INTERACTIVA DE LA BALANZA -->
+        <div class="balance-svg-box">
+            <svg width="380" height="180" viewBox="0 0 380 180">
+                <!-- Base de la balanza -->
+                <polygon points="190,140 170,170 210,170" fill="#4a5568" />
+                <rect x="186" y="70" width="8" height="70" fill="#718096" />
 
-                <!-- Eje central -->
-                <circle cx="250" cy="100" r="8" fill="#2d3748" />
+                <!-- Barra horizontal de la balanza en equilibrio -->
+                <line x1="50" y1="70" x2="330" y2="70" stroke="#2b6cb0" stroke-width="6" stroke-linecap="round" />
 
-                <!-- Brazo móvil de la balanza (Grupo rotatorio) -->
-                <g id="balanceBeam" transform="rotate(0 250 100)" style="transition: transform 0.5s ease-out;">
-                    <!-- Barra horizontal -->
-                    <rect x="70" y="96" width="360" height="8" rx="4" fill="#4a5568" />
-                    
-                    <!-- Platillo Izquierdo -->
-                    <line x1="100" y1="100" x2="100" y2="140" stroke="#a0aec0" stroke-width="2" />
-                    <line x1="160" y1="100" x2="160" y2="140" stroke="#a0aec0" stroke-width="2" />
-                    <path d="M 80,140 Q 130,165 180,140 Z" fill="#cbd5e0" stroke="#718096" stroke-width="2" />
+                <!-- Platos de la balanza -->
+                <!-- Izquierda (Plato L) -->
+                <line x1="80" y1="70" x2="80" y2="110" stroke="#a0aec0" stroke-width="2" />
+                <path d="M 40,110 Q 80,125 120,110 Z" fill="#319795" />
+                <!-- Contenido Izquierda: Caja X + 3kg -->
+                <rect x="52" y="85" width="24" height="24" fill="#d69e2e" rx="3" />
+                <text x="64" y="102" font-size="14" font-weight="bold" fill="white" text-anchor="middle">x</text>
+                <circle cx="95" cy="100" r="8" fill="#e2e8f0" stroke="#4a5568" stroke-width="1.5" />
+                <text x="95" y="104" font-size="10" font-weight="bold" fill="#2d3748" text-anchor="middle">3kg</text>
 
-                    <!-- Objetos Platillo Izquierdo (x + 3) -->
-                    <!-- Caja X -->
-                    <rect x="92" y="112" width="28" height="28" rx="4" fill="#319795" stroke="#234e52" stroke-width="2" />
-                    <text x="106" y="131" font-weight="bold" font-size="16" fill="white" text-anchor="middle">x</text>
-                    
-                    <!-- Pesas pequeñas (3 unidades) -->
-                    <circle cx="132" cy="132" r="7" fill="#d69e2e" />
-                    <circle cx="148" cy="132" r="7" fill="#d69e2e" />
-                    <circle cx="164" cy="132" r="7" fill="#d69e2e" />
+                <!-- Derecha (Plato R) -->
+                <line x1="300" y1="70" x2="300" y2="110" stroke="#a0aec0" stroke-width="2" />
+                <path d="M 260,110 Q 300,125 340,110 Z" fill="#319795" />
+                <!-- Contenido Derecha: Pesa 7kg -->
+                <circle cx="300" cy="98" r="12" fill="#e2e8f0" stroke="#4a5568" stroke-width="1.5" />
+                <text x="300" y="103" font-size="11" font-weight="bold" fill="#2d3748" text-anchor="middle">7kg</text>
 
-                    <!-- Platillo Derecho -->
-                    <line x1="340" y1="100" x2="340" y2="140" stroke="#a0aec0" stroke-width="2" />
-                    <line x1="400" y1="100" x2="400" y2="140" stroke="#a0aec0" stroke-width="2" />
-                    <path d="M 320,140 Q 370,165 420,140 Z" fill="#cbd5e0" stroke="#718096" stroke-width="2" />
-
-                    <!-- Objetos Platillo Derecho (7 pesas) -->
-                    <g id="rightWeights"></g>
-                </g>
+                <!-- Explicación gráfica -->
+                <text x="190" y="25" font-size="15" font-weight="bold" fill="#2b6cb0" text-anchor="middle">x + 3 = 7  ➔  x = 4</text>
             </svg>
-
-            <div class="balance-controls">
-                <label id="lbl-balance-val" style="font-weight: bold;">Probatua "x" balioa / Valor de "x":</label>
-                <input type="number" id="balanceX" value="4" min="0" max="10" step="1" style="width: 60px; padding: 5px; text-align: center; font-size: 1rem;" oninput="updateBalance()">
-                <span id="balanceStatus" style="font-weight: bold; margin-left: 10px; padding: 4px 10px; border-radius: 4px;"></span>
-            </div>
         </div>
 
         <div class="step-card">
@@ -522,9 +494,9 @@
 
             <div class="resolution-steps" id="deg1-steps"></div>
 
-            <div style="font-weight: bold; color: var(--dark); margin-top: 10px;" id="lbl-number-line">Ebazpenaren kokapena zenbaki-zatiaren gainean:</div>
+            <div style="font-weight: bold; color: var(--dark); margin-top: 10px;" id="lbl-deg1-graph">Adierazpen Grafikoa Ardatz Koordenatuetan:</div>
             <div class="canvas-container">
-                <canvas id="numberLineCanvas" width="400" height="100"></canvas>
+                <canvas id="deg1Canvas" width="380" height="240"></canvas>
             </div>
         </div>
     </div>
@@ -571,8 +543,9 @@
 
             <div class="resolution-steps" id="deg2-steps"></div>
 
+            <div style="font-weight: bold; color: var(--dark); margin-top: 10px;" id="lbl-deg2-graph">Adierazpen Grafikoa Ardatz Koordenatuetan:</div>
             <div class="canvas-container">
-                <canvas id="parabolaCanvas" width="360" height="220"></canvas>
+                <canvas id="deg2Canvas" width="380" height="240"></canvas>
             </div>
         </div>
     </div>
@@ -624,8 +597,8 @@
 <script type="text/javascript">
     var currentLang = 'eu';
 
-    var currentDateStr = "2026ko urriaren 16an";
-    var currentDateStrEs = "16 de octubre de 2026";
+    var currentDateStr = "2026ko urriaren 30an";
+    var currentDateStrEs = "30 de octubre de 2026";
 
     var translations = {
         eu: {
@@ -645,19 +618,16 @@
             introSec2Desc: 'Ekuazio batean, ezagutzen ez dugun balio bati <strong>ezezaguna</strong> deitzen diogu, eta "x" letrerekin adierazten dugu. Ekuazioa ebaztea berdintza egiazko egiten duen "x"-ren balioa aurkitzea da.',
             introSec3Title: '3. Adibide Konparatiboa:',
             introSec3Desc: 'Demagun kutxa bat dugula ("x" pisu duena) eta 3 kg-ko pisu bat. Balantzan 7 kg-ko pisu baten ondoan orekatzen bada, ekuazioa hau da: <strong>x + 3 = 7</strong>. Hortaz, "x" = 4 izan behar da.',
-            balanceTitle: 'Balantza Interaktiboa: x + 3 = 7',
-            lblBalanceVal: 'Probatua "x" balioa:',
-            balBalanced: 'Orekan! (x = 4)',
-            balUnbalanced: 'Orekatu gabe!',
 
             deg1Title: 'Lehen Mailako Ekuazioak (Linealak)',
             deg1Intro: 'Lehen mailako ekuazio batean, "x" ezezagunaren berretzailea 1 da. Formatu orokorra: <strong>ax + b = c</strong>.',
             deg1SimTitle: 'Simuladore Interaktiboa (Panela eta Deslizadoreak)',
-            numLineLbl: 'Ebazpenaren kokapena zenbaki-zatiaren gainean:',
+            deg1GraphLbl: 'Adierazpen Grafikoa Ardatz Koordenatuetan:',
 
             deg2Title: 'Bigarren Mailako Ekuazioak (Koadratikoak)',
             deg2Intro: 'Egitura orokorra: <strong>ax² + bx + c = 0</strong> (non a ≠ 0).',
             deg2SimTitle: 'Simuladorea eta Grafikoa: ax² + bx + c = 0',
+            deg2GraphLbl: 'Adierazpen Grafikoa Ardatz Koordenatuetan:',
 
             lblA1: "Koefizientea 'a':",
             lblB1: "Termino 'b':",
@@ -684,7 +654,7 @@
             disclaimer: "Aplicación creada por a.arriba@irakasle.ehu.eus con la ayuda de una IA para generar el código (última revisión el " + currentDateStrEs + "). Esta herramienta puede tener fallos, así que todas las sugerencias o correcciones se atenderán por dicho correo electrónico.",
             langBtn: '🌐 Euskara',
             appTitle: 'Simulador de Ecuaciones - 1.º ESO',
-            appSubtitle: 'Teoría, simuladores interactivos y gráficas - 1.º ESO',
+            appSubtitle: 'Teoria, simuladores interactivos y gráficas - 1.º ESO',
             tabIntro: '¿Qué es una ecuación?',
             tabDeg1: '1.er Grado',
             tabDeg2: '2.º Grado',
@@ -697,19 +667,16 @@
             introSec2Desc: 'En una ecuación, el valor desconocido se llama <strong>incógnita</strong> y se representa con la letra "x". Resolver la ecuación es encontrar el valor de "x" que hace que la igualdad sea cierta.',
             introSec3Title: '3. Ejemplo Comparativo:',
             introSec3Desc: 'Imagina una caja (que pesa "x" kg) junto a una pesa de 3 kg. Si se equilibra en la balanza con una pesa de 7 kg, la ecuación es: <strong>x + 3 = 7</strong>. Por tanto, "x" = 4 kg.',
-            balanceTitle: 'Balanza Interactiva: x + 3 = 7',
-            lblBalanceVal: 'Probando el valor de "x":',
-            balBalanced: '¡En equilibrio! (x = 4)',
-            balUnbalanced: '¡Desequilibrada!',
 
             deg1Title: 'Ecuaciones de Primer Grado (Lineales)',
             deg1Intro: 'En una ecuación de primer grado, la incógnita "x" tiene exponente 1. Forma general: <strong>ax + b = c</strong>.',
             deg1SimTitle: 'Simulador Interactivo (Panel y Deslizadores)',
-            numLineLbl: 'Ubicación de la solución en la recta numérica:',
+            deg1GraphLbl: 'Representación Gráfica en Ejes de Coordenadas:',
 
             deg2Title: 'Ecuaciones de Segundo Grado (Cuadráticas)',
             deg2Intro: 'Estructura general: <strong>ax² + bx + c = 0</strong> (con a ≠ 0).',
             deg2SimTitle: 'Simulador y Gráfica: ax² + bx + c = 0',
+            deg2GraphLbl: 'Representación Gráfica en Ejes de Coordenadas:',
 
             lblA1: "Coeficiente 'a':",
             lblB1: "Término 'b':",
@@ -747,7 +714,7 @@
         document.getElementById(tabName).classList.add("active");
         evt.currentTarget.classList.add("active");
 
-        if (tabName === 'deg1') { drawNumberLine(); }
+        if (tabName === 'deg1') { drawDeg1Graph(); }
         if (tabName === 'deg2') { drawParabola(); }
     }
 
@@ -773,17 +740,15 @@
         document.getElementById('intro-sec3-title').innerText = t.introSec3Title;
         document.getElementById('intro-sec3-desc').innerHTML = t.introSec3Desc;
 
-        document.getElementById('balance-title').innerText = t.balanceTitle;
-        document.getElementById('lbl-balance-val').innerText = t.lblBalanceVal;
-
         document.getElementById('deg1-title').innerText = t.deg1Title;
         document.getElementById('deg1-intro').innerHTML = t.deg1Intro;
         document.getElementById('deg1-sim-title').innerText = t.deg1SimTitle;
-        document.getElementById('lbl-number-line').innerText = t.numLineLbl;
+        document.getElementById('lbl-deg1-graph').innerText = t.deg1GraphLbl;
 
         document.getElementById('deg2-title').innerText = t.deg2Title;
         document.getElementById('deg2-intro').innerHTML = t.deg2Intro;
         document.getElementById('deg2-sim-title').innerText = t.deg2SimTitle;
+        document.getElementById('lbl-deg2-graph').innerText = t.deg2GraphLbl;
 
         document.getElementById('lbl-deg1-a').innerText = t.lblA1;
         document.getElementById('lbl-deg1-b').innerText = t.lblB1;
@@ -805,54 +770,8 @@
 
         document.getElementById('footer-text').innerHTML = t.footer;
 
-        updateBalance();
         updateDeg1Sim();
         updateDeg2Sim();
-    }
-
-    // LÓGICA DE LA BALANZA INTERACTIVA (SVG)
-    function initBalanceWeights() {
-        var rightGroup = document.getElementById('rightWeights');
-        if (!rightGroup) return;
-        rightGroup.innerHTML = '';
-        
-        // Renderizar 7 pesas pequeñas en el platillo derecho
-        for (var i = 0; i < 7; i++) {
-            var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            circle.setAttribute("cx", 340 + (i % 4) * 16);
-            circle.setAttribute("cy", 132 - Math.floor(i / 4) * 14);
-            circle.setAttribute("r", 7);
-            circle.setAttribute("fill", "#d69e2e");
-            rightGroup.appendChild(circle);
-        }
-    }
-
-    function updateBalance() {
-        var val = parseFloat(document.getElementById('balanceX').value) || 0;
-        var leftWeight = val + 3;
-        var rightWeight = 7;
-        var diff = leftWeight - rightWeight;
-
-        // Limitar la inclinación entre -15 y 15 grados
-        var angle = Math.max(-15, Math.min(15, diff * 4));
-
-        var beam = document.getElementById('balanceBeam');
-        var status = document.getElementById('balanceStatus');
-        var t = translations[currentLang];
-
-        if (beam) {
-            beam.setAttribute('transform', 'rotate(' + angle + ' 250 100)');
-        }
-
-        if (diff === 0) {
-            status.innerText = t.balBalanced;
-            status.style.backgroundColor = '#c6f6d5';
-            status.style.color = '#22543d';
-        } else {
-            status.innerText = t.balUnbalanced;
-            status.style.backgroundColor = '#fed7d7';
-            status.style.color = '#742a2a';
-        }
     }
 
     // Sincronización para Grado 1
@@ -890,12 +809,12 @@
             '<p><strong>Paso 2 (Despejar "x"):</strong> x = ' + rhs + ' / ' + a + '</p>' +
             '<p style="font-size:1.1rem; color:var(--primary); margin-top:5px;"><strong>Emaitza / Resultado:</strong> x = <strong>' + (sol % 1 === 0 ? parseInt(sol, 10) : sol) + '</strong></p>';
 
-        drawNumberLine();
+        drawDeg1Graph();
     }
 
-    // Dibuja la solución sobre una recta numérica horizontal
-    function drawNumberLine() {
-        var canvas = document.getElementById('numberLineCanvas');
+    // Dibuja la RECTA NEGRA en un eje de coordenadas y marca con ROJO el punto de corte con y=0
+    function drawDeg1Graph() {
+        var canvas = document.getElementById('deg1Canvas');
         if (!canvas || !canvas.getContext) return;
         var ctx = canvas.getContext('2d');
 
@@ -905,63 +824,65 @@
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        if (a === 0) return;
-        var sol = (c - b) / a;
+        var originX = canvas.width / 2;
+        var originY = canvas.height / 2;
+        var scale = 15;
 
-        var startX = 40;
-        var endX = canvas.width - 40;
-        var centerY = canvas.height / 2;
-        var lineLength = endX - startX;
-
-        // Rango visible en la recta numérica centrado alrededor de la solución (mínimo -10 a 10)
-        var minVal = Math.min(-10, Math.floor(sol) - 4);
-        var maxVal = Math.max(10, Math.ceil(sol) + 4);
-        var rangeVal = maxVal - minVal;
-
-        // Dibujar barra de la recta numérica
+        // Dibuja los Ejes de Coordenadas principales
         ctx.beginPath();
-        ctx.strokeStyle = '#2d3748';
-        ctx.lineWidth = 2;
-        ctx.moveTo(startX, centerY);
-        ctx.lineTo(endX, centerY);
+        ctx.strokeStyle = '#cbd5e0';
+        ctx.lineWidth = 1;
+        ctx.moveTo(0, originY); ctx.lineTo(canvas.width, originY);
+        ctx.moveTo(originX, 0); ctx.lineTo(originX, canvas.height);
         ctx.stroke();
 
-        // Marcas enteras en la recta
-        ctx.font = '11px sans-serif';
-        ctx.fillStyle = '#4a5568';
-        ctx.textAlign = 'center';
-
-        for (var v = minVal; v <= maxVal; v++) {
-            var posX = startX + ((v - minVal) / rangeVal) * lineLength;
-            
-            ctx.beginPath();
-            ctx.lineWidth = (v === 0) ? 2 : 1;
-            ctx.strokeStyle = (v === 0) ? '#2b6cb0' : '#718096';
-            ctx.moveTo(posX, centerY - 6);
-            ctx.lineTo(posX, centerY + 6);
-            ctx.stroke();
-
-            if (rangeVal <= 20 || v % 2 === 0 || v === Math.round(sol)) {
-                ctx.fillText(v, posX, centerY + 22);
+        // Marcas numéricas pequeñas en los ejes
+        ctx.font = '9px sans-serif';
+        ctx.fillStyle = '#a0aec0';
+        for (var i = -10; i <= 10; i += 2) {
+            if (i !== 0) {
+                ctx.fillText(i, originX + i * scale - 4, originY + 12);
+                ctx.fillText(i, originX - 14, originY - i * scale + 3);
             }
         }
 
-        // Posición exacta del punto solución sobre la recta numérica
-        var solPosX = startX + ((sol - minVal) / rangeVal) * lineLength;
+        if (a === 0) return;
 
-        // Círculo indicador de la solución
+        // Dibuja la Recta en NEGRO
         ctx.beginPath();
-        ctx.fillStyle = '#e53e3e';
-        ctx.arc(solPosX, centerY, 7, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.lineWidth = 2;
-        ctx.strokeStyle = '#fff';
+        ctx.strokeStyle = '#000000';
+        ctx.lineWidth = 2.5;
+
+        var xLeft = -15;
+        var yLeft = a * xLeft + (b - c);
+        var pxLeft = originX + (xLeft * scale);
+        var pyLeft = originY - (yLeft * scale);
+
+        var xRight = 15;
+        var yRight = a * xRight + (b - c);
+        var pxRight = originX + (xRight * scale);
+        var pyRight = originY - (yRight * scale);
+
+        ctx.moveTo(pxLeft, pyLeft);
+        ctx.lineTo(pxRight, pyRight);
         ctx.stroke();
 
-        // Etiqueta flotante con el valor exacto de x
+        // Solución x = (c - b) / a  -> Punto de corte con y = 0
+        var solX = (c - b) / a;
+        var pSolX = originX + (solX * scale);
+        var pSolY = originY;
+
+        // Marcar el punto de corte en ROJO
+        ctx.beginPath();
+        ctx.fillStyle = '#e53e3e';
+        ctx.arc(pSolX, pSolY, 6, 0, 2 * Math.PI);
+        ctx.fill();
+
+        // Texto informativo en ROJO x = [solución]
+        var solText = "x = " + (solX % 1 === 0 ? solX : solX.toFixed(2));
         ctx.font = 'bold 12px sans-serif';
         ctx.fillStyle = '#e53e3e';
-        ctx.fillText("x = " + (sol % 1 === 0 ? sol : sol.toFixed(2)), solPosX, centerY - 15);
+        ctx.fillText(solText, pSolX - 15, pSolY - 12);
     }
 
     // Sincronización para Grado 2
@@ -1024,8 +945,9 @@
         drawParabola();
     }
 
+    // Dibuja la Parábola y marca en ROJO los puntos de corte con y=0 con x= [solución 1] y x'= [solución 2]
     function drawParabola() {
-        var canvas = document.getElementById('parabolaCanvas');
+        var canvas = document.getElementById('deg2Canvas');
         if (!canvas || !canvas.getContext) return;
         var ctx = canvas.getContext('2d');
 
@@ -1039,6 +961,7 @@
         var originY = canvas.height / 2;
         var scale = 15;
 
+        // Ejes de Coordenadas
         ctx.beginPath();
         ctx.strokeStyle = '#cbd5e0';
         ctx.lineWidth = 1;
@@ -1048,6 +971,7 @@
 
         if (a === 0) return;
 
+        // Trazado de la Parábola
         ctx.beginPath();
         ctx.strokeStyle = '#2b6cb0';
         ctx.lineWidth = 2.5;
@@ -1066,6 +990,36 @@
             }
         }
         ctx.stroke();
+
+        // Puntos de corte con y = 0
+        var disc = (b * b) - (4 * a * c);
+        if (disc >= 0) {
+            var sol1 = (-b + Math.sqrt(disc)) / (2 * a);
+            var sol2 = (-b - Math.sqrt(disc)) / (2 * a);
+
+            // Primer punto de corte
+            var p1X = originX + (sol1 * scale);
+            ctx.beginPath();
+            ctx.fillStyle = '#e53e3e';
+            ctx.arc(p1X, originY, 6, 0, 2 * Math.PI);
+            ctx.fill();
+
+            ctx.font = 'bold 11px sans-serif';
+            var txt1 = "x = " + (sol1 % 1 === 0 ? sol1 : sol1.toFixed(2));
+            ctx.fillText(txt1, p1X - 15, originY - 10);
+
+            // Segundo punto de corte (si es distinto)
+            if (disc > 0) {
+                var p2X = originX + (sol2 * scale);
+                ctx.beginPath();
+                ctx.fillStyle = '#e53e3e';
+                ctx.arc(p2X, originY, 6, 0, 2 * Math.PI);
+                ctx.fill();
+
+                var txt2 = "x' = " + (sol2 % 1 === 0 ? sol2 : sol2.toFixed(2));
+                ctx.fillText(txt2, p2X - 15, originY + 20);
+            }
+        }
     }
 
     // QUIZZES
@@ -1134,8 +1088,6 @@
     }
 
     window.onload = function() {
-        initBalanceWeights();
-        updateBalance();
         updateDeg1Sim();
         updateDeg2Sim();
         generateQuiz1();
